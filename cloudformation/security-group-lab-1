@@ -1,0 +1,39 @@
+AWSTemplateFormatVersion: 2010-09-09
+
+Parameters:
+ 
+  petclinicvpc:
+    Description: VPC to launch instances into
+    Type: 'AWS::EC2::VPC::Id'
+  
+  petclinicip:
+    Description: Update this with your own office/home public ip address
+    Type: String
+Resources:
+  petclinicsg:
+    Type: 'AWS::EC2::SecurityGroup'
+    Properties:
+      VpcId: !Ref petclinicvpc
+      GroupDescription: Web Server Security Group
+      SecurityGroupIngress:
+        - CidrIp: !Ref petclinicip
+          FromPort: '22'
+          IpProtocol: tcp
+          ToPort: '22'
+        
+      SecurityGroupEgress:
+        - IpProtocol: '-1'
+          CidrIp: 0.0.0.0/0
+      
+      
+Lab:-
+========================
+petclinic-web
+80-petlinic-alb
+22-petlinic-bastion
+
+petlinic-alb
+80-0.0.0.0/0
+
+petlinic-bastion
+22-ssh-anywhere
