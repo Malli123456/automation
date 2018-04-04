@@ -1,0 +1,32 @@
+provider "aws" {
+  access_key = "AKIAJXUV2FJ4CV5MCQDA"
+  secret_key = "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"
+  region     = "us-west-2"
+}
+
+resource "aws_security_group" "allow_all" {
+  name        = "allow_all"
+  description = "Allow all inbound traffic"
+  vpc_id      = "vpc-feb39b99"
+  
+  tags {
+    Name = "Terraform"
+  }
+
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+
+
+  egress {
+    from_port       = 443
+    to_port         = 443
+    protocol        = "tcp"
+    cidr_blocks     = ["0.0.0.0/0"]
+    
+  }
+}
