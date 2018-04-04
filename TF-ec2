@@ -1,0 +1,17 @@
+provider "aws" {
+  access_key = "AKIAJXUV2FJ4CV5MCQDA"
+  secret_key = "IFZgflVJQeKqrZnMIYBh/NcGMjeb8p1Fy7ZdrL8H"
+  region     = "us-west-2"
+}
+
+resource "aws_instance" "example" {
+  ami           = "ami-223f945a"
+  instance_type = "t2.micro"
+  tags {
+    Name = "Terraform"
+  }
+}
+
+resource "aws_eip" "ip" {
+  instance = "${aws_instance.example.id}"
+}
